@@ -1,0 +1,36 @@
+.promotion__timer {
+    width: 60%;
+    margin: 200px auto 250px auto;
+}
+
+.promotion__timer .timer {
+    margin-top: 0px;
+    padding-left: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.promotion__timer .timer__block {
+    width: 100%;
+    height: 100px;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .25);
+    font-size: 16px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.promotion__timer .timer__block span {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 56px;
+    font-weight: 700;
+}
+
+.title {
+    margin-top: 25px;
+    font-size: 36px;
+    font-weight: 900;
+}
