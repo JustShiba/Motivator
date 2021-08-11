@@ -11,15 +11,11 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            timer: {
-                start: null,
-                end: null,
-                time: null
-            },
-            salary: {
-                count: null,
-                currency: null
-            }
+            start: '17:20',
+            end: null,
+            time: null,
+            count: null,
+            currency: null
         }
         this.startCount = this.startCount.bind(this);
     }
@@ -28,28 +24,47 @@ export default class App extends Component {
         console.log(terms);
     }
 
-    checkBtn = (time, count, currency, e) => {
-        if (time !== null && count !== null && currency !== null) {
-            e.target.disabled = !e.target.disabled;
+    checkBtn = (start, end, count, currency) => {
+        if (start === null || end === null || count === null || currency === null) {
+            const dateNowHours = new Date().getHours();
+            const dateNowMinutes = new Date().getMinutes();
+            const arrStart = this.state.start.split(':');
+            const startCounter = (((+arrStart[0] * 60 * 60) + (+arrStart[1] * 60)) - ((dateNowHours * 60 * 60) + (dateNowMinutes * 60)))
+            console.log(this.state, dateNowHours, dateNowMinutes, startCounter);
+        } else {
+            console.log('Пожалуйста, введите все данные и отправьте при помощи двух боковых кнопок)');          //  CHANGE  
         }
     }
 
+    infSalary = ({currency, numCurrency}) => {
+        this.setState({
+            count: numCurrency,
+            currency: currency
+        })
+    }
+
+    infTimer = ({start, end}) => {
+        this.setState({
+            start: start,
+            end: end
+        })
+    }
+
     render () {
-        const {time} = this.state.timer;
-        const {count, currency} = this.state.salary;
+        const {start, end, count, currency} = this.state;
+        
         return (
             <>
                 <Header/>
                 <div className='row w-100'>
-                    <PickHours/>
+                    <PickHours infTime={this.infTimer}/>
                     <button 
-                        disabled
-                        onClick={(e) => this.checkBtn(time, count, currency, e)}
+                        onClick={(e) => {this.checkBtn(start, end, count, currency)}}
                         type='button' 
                         className='btn btn-outline-success col-sm-2 align-self-end' 
                         style={{fontSize: 30 + 'px', height: 70 + 'px'}}>
                     Start</button>
-                    <EnterSalary/>
+                    <EnterSalary infSalary={this.infSalary}/>
                 </div>
                 <MoneyCounter/>
                 <TimeRange/>
